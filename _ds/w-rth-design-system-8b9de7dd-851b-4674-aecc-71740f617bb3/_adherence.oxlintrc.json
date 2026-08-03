@@ -1,0 +1,165 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/**",
+              "ui_kits/eshop/**",
+              "ui_kits/platform/**",
+              "video/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:WuerthSans|WuerthGlobal))/i]",
+        "message": "Font not provided by the design system. Available: WuerthSans, WuerthGlobal."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|variant|small|block|onClick|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: children, variant, small, block, onClick."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:red|black|outline|ghost|cyan)$/]",
+        "message": "<Button> variant must be one of 'red' | 'black' | 'outline' | 'ghost' | 'cyan'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='WiseCredit'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|on|label|accent|key|ref|className|style|children)$/]",
+        "message": "<WiseCredit> doesn't accept that prop. Declared props: variant, on, label, accent."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='WiseCredit'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:badge|bar)$/]",
+        "message": "<WiseCredit> variant must be one of 'badge' | 'bar'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='WiseCredit'] > JSXAttribute[name.name='on'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<WiseCredit> on must be one of 'light' | 'dark'."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Button": {
+        "replaces": []
+      },
+      "WiseCredit": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--bg-card",
+      "--bg-page",
+      "--border",
+      "--border-faint",
+      "--bronze",
+      "--fg1",
+      "--fg2",
+      "--fg3",
+      "--font-mono",
+      "--font-sans",
+      "--g10",
+      "--g25",
+      "--g40",
+      "--g55",
+      "--g70",
+      "--g85",
+      "--gold",
+      "--radius-card",
+      "--radius-control",
+      "--radius-pill",
+      "--silver",
+      "--success",
+      "--warning",
+      "--wise-charcoal",
+      "--wise-crimson",
+      "--wise-gold",
+      "--wise-gradient",
+      "--wise-magenta",
+      "--wise-violet",
+      "--wuerth-black",
+      "--wuerth-blue",
+      "--wuerth-cyan",
+      "--wuerth-dark-red",
+      "--wuerth-green",
+      "--wuerth-red",
+      "--wuerth-red-hover",
+      "--wuerth-white",
+      "--wuerth-yellow"
+    ],
+    "tokenKinds": {
+      "--wuerth-red": "color",
+      "--wuerth-red-hover": "color",
+      "--wuerth-cyan": "color",
+      "--wuerth-black": "color",
+      "--wuerth-white": "color",
+      "--g85": "color",
+      "--g70": "color",
+      "--g55": "color",
+      "--g40": "color",
+      "--g25": "color",
+      "--g10": "color",
+      "--border": "color",
+      "--border-faint": "color",
+      "--wuerth-yellow": "color",
+      "--wuerth-dark-red": "color",
+      "--wuerth-blue": "color",
+      "--wuerth-green": "color",
+      "--bronze": "color",
+      "--silver": "color",
+      "--gold": "color",
+      "--success": "color",
+      "--warning": "color",
+      "--wise-violet": "color",
+      "--wise-magenta": "color",
+      "--wise-crimson": "color",
+      "--wise-charcoal": "color",
+      "--wise-gold": "color",
+      "--wise-gradient": "color",
+      "--fg1": "color",
+      "--fg2": "color",
+      "--fg3": "color",
+      "--bg-page": "color",
+      "--bg-card": "color",
+      "--font-sans": "font",
+      "--font-mono": "font",
+      "--radius-card": "radius",
+      "--radius-control": "radius",
+      "--radius-pill": "radius"
+    },
+    "fontFamilies": [
+      "WuerthGlobal",
+      "WuerthSans"
+    ]
+  }
+}

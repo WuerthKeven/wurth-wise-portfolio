@@ -1,0 +1,189 @@
+/* =============================================================================
+   WÜRTH CORPORATE IDENTITY — colors & type foundations
+   Single source of truth for color tokens + typographic styles.
+   Import this file into any artifact:  <link rel="stylesheet" href="colors_and_type.css">
+   ============================================================================= */
+
+/* ---------- FONTS — WuerthSans (Standard-Web, 2026) ---------- */
+@font-face {
+  font-family: 'WuerthSans';
+  font-weight: 800;            /* BlackCond — headlines */
+  font-style: normal;
+  src: url('fonts/WuerthSans-BlackCond.woff2') format('woff2'), url('fonts/WuerthSans-BlackCond.woff') format('woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'WuerthSans';
+  font-weight: 900;            /* Black — non-condensed display */
+  font-style: normal;
+  src: url('fonts/WuerthSans-Black.woff2') format('woff2'), url('fonts/WuerthSans-Black.woff') format('woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'WuerthSans';
+  font-weight: 700;            /* Demi — sublines, buttons, labels */
+  font-style: normal;
+  src: url('fonts/WuerthSans-Demi.woff2') format('woff2'), url('fonts/WuerthSans-Demi.woff') format('woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'WuerthSans';
+  font-weight: 400;            /* Book — body */
+  font-style: normal;
+  src: url('fonts/WuerthSans-Book.woff2') format('woff2'), url('fonts/WuerthSans-Book.woff') format('woff');
+  font-display: swap;
+}
+/* Legacy alias — old artifacts referencing 'WuerthGlobal' resolve to WuerthSans */
+@font-face { font-family: 'WuerthGlobal'; font-weight: 800; src: url('fonts/WuerthSans-BlackCond.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'WuerthGlobal'; font-weight: 700; src: url('fonts/WuerthSans-Demi.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'WuerthGlobal'; font-weight: 400; src: url('fonts/WuerthSans-Book.woff2') format('woff2'); font-display: swap; }
+
+:root {
+  /* ---------- CORE BRAND ---------- */
+  --wuerth-red:        #CC0000;
+  --wuerth-red-hover:  #AA0000;
+  --wuerth-cyan:       #0093DD;   /* CTAs OUTSIDE the brand box only */
+  --wuerth-black:      #1A1A1A;
+  --wuerth-white:      #FFFFFF;
+
+  /* ---------- GRAYS — surfaces / borders / metadata. NEVER body text. ---------- */
+  --g85: #262626;   /* Sidebar bg */
+  --g70: #4D4D4D;
+  --g55: #737373;   /* Metadata text */
+  --g40: #999999;
+  --g25: #BFBFBF;
+  --g10: #F4F4F4;   /* Page bg, input bg */
+
+  --border:        #D1D5DB;   /* Visible card border on gray bg — THE bounding-box rule */
+  --border-faint:  #E8E8E8;   /* Internal dividers, input borders */
+
+  /* ---------- HIGHLIGHTING — accent-only. Never bg, never body text. ---------- */
+  --wuerth-yellow:    #FDC300;
+  --wuerth-dark-red:  #90112C;
+  --wuerth-blue:      #004774;
+  --wuerth-green:     #008448;
+
+  /* ---------- TIER IDENTITY (Bronze / Silver / Gold) ---------- */
+  --bronze: #7C5235;
+  --silver: #606770;
+  --gold:   #8B6914;
+
+  /* ---------- STATUS ---------- */
+  --success: #16A34A;
+  --warning: #D97706;
+
+  /* ---------- WISE — TEAM ATTRIBUTION IDENTITY ----------
+     The build-team signature (WISE — Würth Innovation & Solutions Excellence).
+     Sampled from the WISE logo. Use ONLY for "Built by WISE" credits/attribution.
+     These are NOT Würth CI colors — never use purple/violet in Würth product UI. */
+  --wise-violet:   #8B30FF;   /* gradient start — top of the W */
+  --wise-magenta:  #B4125E;   /* gradient mid */
+  --wise-crimson:  #B80E4D;   /* gradient end */
+  --wise-charcoal: #26262E;   /* the "SE" wordmark + label text */
+  --wise-gold:     #FFB400;   /* the arrow accent on the E */
+  --wise-gradient: linear-gradient(120deg, #8B30FF 0%, #B4125E 58%, #B80E4D 100%); /* @kind color */
+
+  /* ---------- SEMANTIC FOREGROUND ---------- */
+  --fg1: var(--wuerth-black);   /* primary text */
+  --fg2: var(--g70);            /* secondary text */
+  --fg3: var(--g55);            /* metadata / captions */
+  --bg-page:  var(--g10);       /* page background — never pure white at page level */
+  --bg-card:  var(--wuerth-white);
+
+  /* ---------- TYPE FAMILY ---------- */
+  --font-sans: 'WuerthSans', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
+
+  /* ---------- RADII ---------- */
+  --radius-card:    0px;   /* cards are SHARP */
+  --radius-control: 4px;   /* buttons / inputs — max 4px */
+  --radius-pill:    2px;   /* tier pills / micro badges */
+}
+
+/* =============================================================================
+   SEMANTIC TYPE STYLES
+   Apply directly (.h1, .body) or copy the rules into your component CSS.
+   All headings are UPPERCASE — always.
+   ============================================================================= */
+
+.hero,
+.h0 {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 72px;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--fg1);
+}
+
+.h1,
+.page-title {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--fg1);
+}
+
+.h2,
+.section-head {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--fg1);
+}
+
+.body,
+p {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--fg1);
+}
+
+.meta,
+.caption {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--fg3);
+}
+
+.field-label {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg1);
+}
+
+.micro-badge {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.btn-label {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+code,
+.mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}

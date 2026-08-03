@@ -1,0 +1,6 @@
+# Repo tooling and docs — not part of the served site.
+scripts/
+README.md
+CLAUDE.md
+design.config.json
+.gitignore

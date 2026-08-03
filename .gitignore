@@ -1,0 +1,9 @@
+# Vercel CLI link state (contains the project/org id; regenerate with `vercel link`)
+.vercel/
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
+
+.vercel
