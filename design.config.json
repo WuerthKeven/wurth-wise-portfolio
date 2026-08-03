@@ -1,7 +1,13 @@
 {
   "designFile": "WISE Portfolio v2.dc.html",
   "title": "WISE Portfolio",
-  "vercelProject": "wise-portfolio-v2",
-  "vercelScope": "rebt",
-  "liveUrl": "https://wise-portfolio-v2.vercel.app"
+
+  "_hosting": "This repo has NO deployment target wired in. Azure is where this site is going, per the standing all-projects-to-Azure decision. The block below is a THROWAWAY mockup host used for the Aug-2026 presentation only -- it is not this repo's target and must not be treated as one.",
+  "mockupHost": {
+    "temporary": true,
+    "provider": "vercel",
+    "scope": "rebt",
+    "project": "wise-portfolio-v2",
+    "url": "https://wise-portfolio-v2.vercel.app"
+  }
 }

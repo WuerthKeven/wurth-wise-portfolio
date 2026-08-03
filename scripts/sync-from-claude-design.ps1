@@ -23,20 +23,22 @@
 .PARAMETER Commit
   Also `git add -A` and commit the result.
 
-.PARAMETER Deploy
-  Also deploy to Vercel production.
+.PARAMETER PublishMockup
+  Push the result to the THROWAWAY mockup host in design.config.json. This repo has no
+  real deployment target wired in -- the site is going to Azure. Use this only to refresh
+  the temporary presentation link.
 
 .EXAMPLE
   .\scripts\sync-from-claude-design.ps1
-  .\scripts\sync-from-claude-design.ps1 -Commit -Deploy
-  .\scripts\sync-from-claude-design.ps1 -DesignFile "WISE Portfolio v3.dc.html" -Commit -Deploy
+  .\scripts\sync-from-claude-design.ps1 -Commit
+  .\scripts\sync-from-claude-design.ps1 -DesignFile "WISE Portfolio v3.dc.html" -Commit
 #>
 [CmdletBinding()]
 param(
   [string]$Bundle,
   [string]$DesignFile,
   [switch]$Commit,
-  [switch]$Deploy
+  [switch]$PublishMockup
 )
 
 $ErrorActionPreference = 'Stop'
@@ -136,9 +138,21 @@ try {
     Say (git log -1 --oneline)
   }
 
-  if ($Deploy) {
-    Step 'Deploying to Vercel production'
-    vercel deploy $repo --prod --yes --scope $config.vercelScope
+  if ($PublishMockup) {
+    $mock = $config.mockupHost
+    Step "Publishing to the TEMPORARY mockup host ($($mock.provider))"
+    Write-Host "   Throwaway presentation link, NOT this repo's deployment target." -ForegroundColor Yellow
+    Write-Host "   The real target is Azure. Do not build anything on top of this URL." -ForegroundColor Yellow
+    # Link on demand and tear the link down again, so the repo stays host-agnostic at rest.
+    try {
+      vercel link --cwd $repo --yes --project $mock.project --scope $mock.scope
+      vercel deploy $repo --prod --yes --scope $mock.scope
+      Say "live: $($mock.url)"
+    }
+    finally {
+      $linkState = Join-Path $repo '.vercel'
+      if (Test-Path -LiteralPath $linkState) { Remove-Item -LiteralPath $linkState -Recurse -Force; Say 'link state torn down' }
+    }
   }
 }
 finally { Pop-Location }

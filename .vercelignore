@@ -1,6 +1,8 @@
-# Repo tooling and docs — not part of the served site.
+# Only applies to the throwaway mock-up deploys (`-PublishMockup`). Azure is the real target.
+# Keeps repo tooling and docs out of anything that gets served publicly.
 scripts/
 README.md
 CLAUDE.md
 design.config.json
 .gitignore
+.gitattributes
