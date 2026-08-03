@@ -1,0 +1,3 @@
+# This repo mirrors a Claude Design export byte-for-byte. Disable all line-ending
+# conversion so a re-sync only shows diffs the designer actually made, not CRLF churn.
+* -text
