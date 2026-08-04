@@ -62,6 +62,10 @@
   @keyframes wiseBeat{0%,100%{transform:scale(1);}14%,44%{transform:scale(1.22);}30%{transform:scale(1);}}
   @keyframes wiseBreathe{0%{transform:translate(-50%,-50%) scale(1);opacity:.45;}100%{transform:translate(-50%,-50%) scale(1.12);opacity:.75;}}
   @keyframes wiseFloat{0%,100%{transform:translateY(-4px);}50%{transform:translateY(4px);}}
+  [data-wurthlogo]{opacity:0;transition:opacity .22s ease;}
+  [data-theme="light"] [data-wurthlogo="light"]{opacity:1;}
+  [data-theme="dark"] [data-wurthlogo="dark"]{opacity:1;}
+  @media (max-width:1120px){[data-brandlock]{gap:12px!important;}[data-brandlock] [data-wurthmark]{width:96px!important;height:21px!important;}}
   @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}html{scroll-behavior:auto;}}
 </style>
 <script type="module">
@@ -78,9 +82,16 @@
 
   <nav data-nav="1" style="position:fixed;top:0;left:0;right:0;z-index:60;height:70px;display:flex;align-items:center;border-bottom:1px solid transparent;background:transparent;transition:background .22s ease,border-color .22s ease;">
     <div style="max-width:1220px;margin:0 auto;padding:0 32px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;">
-      <a href="#top" style="position:relative;display:block;width:120px;height:38px;flex:none;">
-        <img data-logo="dark" src="assets/wise-logo-dark.png" alt="WISE" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left center;opacity:1;transition:opacity .22s ease;">
-        <img data-logo="light" src="assets/wise-logo-light.png" alt="WISE" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left center;opacity:0;transition:opacity .22s ease;">
+      <a data-brandlock="1" href="#top" style="display:flex;align-items:center;gap:18px;flex:none;text-decoration:none;">
+        <span data-wurthmark="1" style="position:relative;display:block;width:121px;height:26px;flex:none;">
+          <img data-wurthlogo="light" src="assets/wurth-logo-web.svg" alt="Würth" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left center;">
+          <img data-wurthlogo="dark" src="assets/wurth-logo-negative-web.png" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left center;">
+        </span>
+        <span aria-hidden="true" style="width:1px;height:26px;background:var(--border);flex:none;"></span>
+        <span style="position:relative;display:block;width:120px;height:38px;flex:none;">
+          <img data-logo="dark" src="assets/wise-logo-dark.png" alt="WISE" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left center;opacity:1;transition:opacity .22s ease;">
+          <img data-logo="light" src="assets/wise-logo-light.png" alt="WISE" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left center;opacity:0;transition:opacity .22s ease;">
+        </span>
       </a>
       <div data-navwrap="1" style="display:flex;gap:24px;align-items:center;">
         <a data-navlink="1" href="#pillars" style="font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.09em;color:var(--nav-link);transition:color .14s ease;">What We Improve</a>
