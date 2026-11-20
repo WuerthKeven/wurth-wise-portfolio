@@ -21,48 +21,38 @@ python -m http.server 4173 --bind 127.0.0.1
 then open <http://localhost:4173>. (The Claude Code preview config named `wise-portfolio` runs the
 same command.)
 
-## Adding a project's detail (promo page, platform link, preview video)
+## Adding a project
 
-Every solution card opens a detail modal with a preview video, **Go to platform** and
-**More detail**.
+Each solution card has one button, **View detail**, that opens the project's own page in a new tab.
+All the detail lives on that page — the portfolio shows only the card. The Creative Platform
+(`creative` → `creative-platform/index.html`) is the finished reference.
 
-> **With Claude Code:** open this folder and ask, e.g. *"add the details for FASTY"*. The project
-> skill `add-project-detail` (in `.claude/skills/`, shared with the repo) interviews you about the
-> project, asks whether to make a preview video, wires everything below and checks it. The manual
-> steps are the same thing by hand. The Creative Platform (`creative`) is the finished reference — copy what it does.
+> **With Claude Code:** open this folder and ask, e.g. *"add FASTY"*. The project skill
+> `add-project-detail` (in `.claude/skills/`, shared with the repo) interviews you about the project,
+> writes the card, links the page and checks it. The steps below are the same thing by hand.
 
-The six solution ids are: `fasty`, `creative`, `loyalty`, `knowledge`, `flipbook`, `rpa`.
+The six project ids are: `fasty`, `creative`, `loyalty`, `knowledge`, `flipbook`, `rpa`.
 
-**1. Promo page (the "More detail" button)**
-- Put the project's self-contained page at `<folder>/index.html` — e.g.
-  `creative-platform/index.html`. One folder per project, one HTML file, no links to outside hosts
-  (it must render inside the Würth network).
+**1. Card text** — in `index.html`, edit that project's `<div data-solcard id="<id>">`: pillar tags,
+name, tagline, problem line, solution line. Change text only, not the markup.
 
-**2. Preview video (plays when the modal opens)**
-- Save it as `assets/<id>-preview.mp4` — e.g. `assets/creative-platform-preview.mp4`.
-  MP4 (H.264), 16:9, keep it short and small (the reference is 10 s / 3 MB).
-- In `index.html`, find that project's placeholder line and replace it:
+**2. Project page** — one self-contained HTML file at `<folder>/index.html`
+(e.g. `creative-platform/index.html`): no links to outside hosts, because it must render inside the
+Würth network. Set its tab icon:
+`<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">`.
 
-  ```html
-  <!-- before -->
-  <media-slot id="sol-fasty" placeholder="FASTY demo video"></media-slot>
-  <!-- after -->
-  <video data-solvideo="1" src="assets/fasty-preview.mp4" muted loop playsinline controls preload="none" aria-label="FASTY demo video" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;"></video>
-  ```
-
-  Nothing else is needed: the modal script plays any `data-solvideo` on open and pauses it on close.
-
-**3. Links (both buttons)** — in `index.html`, search for `PLATFORM_URLS` and fill that project's id:
+**3. Link the card** — in `index.html`, search for `PROJECT_PAGES` and set that id to the file:
 
 ```js
-const PLATFORM_URLS = { ..., creative:'https://3130-creative-platform.wgn.wuerth.com/home', ... };
-const PROMO_URLS    = { ..., creative:'creative-platform/index.html', ... };
+const PROJECT_PAGES = { ..., creative:'creative-platform/index.html', ... };
 ```
 
-A value left as `'#'` keeps the button inert; a real value opens in a new tab.
+Always the file, never just the folder — a folder link breaks when the site is opened by
+double-click. `'#'` means no page yet: the card shows "Detail coming soon".
 
-**4. Check it** — run `python .claude/skills/add-project-detail/scripts/check_project.py <id>`, then open `index.html` and click the project's **View detail**: the video plays,
-both buttons go where they should, and the console shows no new errors. Then commit.
+**4. Check it** — run `python .claude/skills/add-project-detail/scripts/check_project.py <id>`,
+then open `index.html`, click the card's **View detail**: the page opens in a new tab and renders.
+Then commit on a branch and open a Pull Request.
 
 ## Hosting
 
@@ -108,10 +98,11 @@ scripts/
 - พรีวิว: `python -m http.server 4173 --bind 127.0.0.1` แล้วเปิด <http://localhost:4173>
 - ปลายทางจริงคือ **Azure** (วิธีเลือกโฮสต์อยู่ใน `scripts/AZURE-HOSTING-BRIEF.md`) ส่วนลิงก์ vercel
   เป็นแค่ที่พรีเซนต์ชั่วคราว อย่าผูกโดเมน
-- **เพิ่ม detail ของโปรเจกต์อื่น** ถ้าใช้ Claude Code พิมพ์สั่งได้เลย เช่น *"add the details for FASTY"* สกิล `add-project-detail` จะถามข้อมูลโปรเจกต์ ถามว่าจะทำวิดีโอไหม แล้วทำให้ตามแบบ Creative Platform หรือทำเองตามนี้ (ดูหัวข้อ *Adding a project's detail*):
-  1. หน้าโปรโมท → `<โฟลเดอร์>/index.html` (HTML ไฟล์เดียว ไม่ดึงอะไรจากข้างนอก)
-  2. วิดีโอพรีวิว → `assets/<id>-preview.mp4` แล้วเปลี่ยนบรรทัด `<media-slot id="sol-<id>">` เป็น `<video data-solvideo="1" ...>`
-  3. ลิงก์ → แก้ `PLATFORM_URLS` / `PROMO_URLS` ใน `index.html` ตาม id ของโปรเจกต์
-  4. เปิดพรีวิว กด View detail เช็กว่าวิดีโอเล่น ปุ่มไปถูกที่ แล้วค่อย commit
+- **เพิ่มโปรเจกต์:** การ์ดแต่ละอันมีปุ่ม **View detail** ปุ่มเดียว กดแล้วเปิดหน้าของโปรเจกต์ในแท็บใหม่ (ไม่มี modal / วิดีโอในหน้า portfolio แล้ว)
+  ถ้าใช้ Claude Code พิมพ์สั่งได้เลย เช่น *"add FASTY"* สกิล `add-project-detail` จะถามข้อมูล เขียนการ์ด ผูกลิงก์ และเช็กให้ หรือทำเอง:
+  1. แก้ข้อความในการ์ดของโปรเจกต์นั้น (แก้แค่ข้อความ)
+  2. หน้าโปรเจกต์ → HTML ไฟล์เดียว ที่ `<โฟลเดอร์>/index.html` ไม่ดึงอะไรจากข้างนอก ใส่โลโก้แท็บ `../assets/favicon.svg`
+  3. แก้ `PROJECT_PAGES` ใน `index.html` ให้ชี้ไปที่ไฟล์ (ต้องลงท้าย `index.html` ไม่ใช่แค่โฟลเดอร์) — `'#'` = ยังไม่มีหน้า การ์ดจะขึ้น "Detail coming soon"
+  4. รัน `check_project.py <id>` เปิด `index.html` กด View detail เช็กว่าเปิดถูก แล้ว commit ใน branch + เปิด PR
 - มี dependency นอกตัวเดียว: `esm.sh/dotted-map` (แผนที่โลกใน hero) มี try/catch กันพังไว้ แต่เป็น
   import ที่ไม่ pin เวอร์ชัน ควรให้ security ดูก่อน go-live
