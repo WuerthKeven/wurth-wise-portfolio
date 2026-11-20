@@ -53,7 +53,9 @@ no hype words; match the other cards.
 **4. Project page.** Fork:
 - *They have a file* → copy it to `<id>-page/index.html` (keep an existing folder such as
   `creative-platform/`). Set its tab-icon line to
-  `<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">`.
+  `<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">`, remove every
+  "Case study" label (title, meta description, nav pill), and put a back button first in its nav
+  linking to `../index.html` — copy the `← WISE Portfolio` link from `compass-page/index.html`.
 - *Build one* → model it on `creative-platform/index.html` (same structure, Würth styling, fonts
   embedded), filled only with the interview answers. Show the outline first and wait for an OK.
   A video goes inside the page: their MP4 in the same folder, or one made with a motion-graphics

@@ -60,6 +60,10 @@ def main():
                     fail(4, f"project page loads {len(ext)} resource(s) from outside hosts; make it self-contained")
                 if "../assets/favicon.svg" not in text:
                     fail(4, 'project page is missing <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">')
+                if 'href="../index.html"' not in text:
+                    fail(4, 'project page has no back button to the portfolio (<a href="../index.html">) — copy the one in compass-page/index.html')
+                if re.search(r"case study", text, re.I):
+                    fail(4, 'project page still says "Case study" — remove it from the title, meta description and nav')
                 mb = os.path.getsize(path) / 1e6
                 if mb > 15:
                     print(f"WARN  [step 4] project page is {mb:.1f} MB — slow to open; shrink images/video")
