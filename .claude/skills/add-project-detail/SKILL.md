@@ -5,8 +5,8 @@ description: Adds or updates a project on the WISE portfolio site — interviews
 
 # Add a project
 
-Each solution card has one button, **View detail**, that opens the project's own page in a new
-tab. All the detail lives on that page; the portfolio itself shows only the card. The Creative
+Each solution card has **View detail**, which opens the project's own page in a new tab, and —
+when the project has one — a red **Platform ↗** button to its live platform. All the detail lives on that page; the portfolio itself shows only the card. The Creative
 Platform (id `creative`, page `creative-platform/index.html`) is the finished reference.
 
 ## Never miss these
@@ -41,9 +41,10 @@ instead of inventing it:
 - name, and a one-line tagline
 - pillar(s): Additional Sales, Branding, Customer Retention, Digital Processes
 - the problem it solves (one sentence) and what it does (one sentence)
+- the live platform URL, if there is one (for the **Platform ↗** button on the card)
 - the project page: an HTML file they already have, or should one be built
-- if one is built: what it should cover, the live platform URL if any, and whether it should
-  include a video (and if so, an MP4 they have or one to be made)
+- if one is built: what it should cover, and whether it should include a video (and if so, an
+  MP4 they have or one to be made)
 
 **3. Card text.** In that project's card, replace only the text: pillar tags, name, tagline, the
 problem line and the solution line. Keep every tag, attribute and style. Tone: plain and concrete,
@@ -61,7 +62,9 @@ no hype words; match the other cards.
 - *None yet* → leave the link as `'#'`; the card shows "Detail coming soon".
 
 **5. Link the card.** In `index.html`, search `PROJECT_PAGES` and set that id to the page path,
-e.g. `fasty:'fasty-page/index.html'`.
+e.g. `fasty:'fasty-page/index.html'`. If the project has a live platform, set its URL in
+`PROJECT_PLATFORMS` (just below) — that shows the red **Platform ↗** button beside View detail;
+`'#'` keeps it hidden.
 
 **6. Check, view, commit.**
 - Run `python .claude/skills/add-project-detail/scripts/check_project.py <id>` from the repo root.

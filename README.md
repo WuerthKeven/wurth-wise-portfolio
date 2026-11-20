@@ -23,7 +23,8 @@ same command.)
 
 ## Adding a project
 
-Each solution card has one button, **View detail**, that opens the project's own page in a new tab.
+Each solution card has **View detail**, which opens the project's own page in a new tab, plus a red
+**Platform ↗** button to the live platform when the project has one.
 All the detail lives on that page — the portfolio shows only the card. The Creative Platform
 (`creative` → `creative-platform/index.html`) is the finished reference.
 
@@ -49,6 +50,9 @@ const PROJECT_PAGES = { ..., creative:'creative-platform/index.html', ... };
 
 Always the file, never just the folder — a folder link breaks when the site is opened by
 double-click. `'#'` means no page yet: the card shows "Detail coming soon".
+
+The live platform goes in `PROJECT_PLATFORMS` (just below), as a full `https://` address — it
+shows the red **Platform ↗** button; `'#'` keeps the button hidden.
 
 **4. Check it** — run `python .claude/skills/add-project-detail/scripts/check_project.py <id>`,
 then open `index.html`, click the card's **View detail**: the page opens in a new tab and renders.
@@ -98,11 +102,11 @@ scripts/
 - พรีวิว: `python -m http.server 4173 --bind 127.0.0.1` แล้วเปิด <http://localhost:4173>
 - ปลายทางจริงคือ **Azure** (วิธีเลือกโฮสต์อยู่ใน `scripts/AZURE-HOSTING-BRIEF.md`) ส่วนลิงก์ vercel
   เป็นแค่ที่พรีเซนต์ชั่วคราว อย่าผูกโดเมน
-- **เพิ่มโปรเจกต์:** การ์ดแต่ละอันมีปุ่ม **View detail** ปุ่มเดียว กดแล้วเปิดหน้าของโปรเจกต์ในแท็บใหม่ (ไม่มี modal / วิดีโอในหน้า portfolio แล้ว)
+- **เพิ่มโปรเจกต์:** การ์ดแต่ละอันมีปุ่ม **View detail** กดแล้วเปิดหน้าของโปรเจกต์ในแท็บใหม่ และปุ่มแดง **Platform ↗** ไปที่ตัวแพลตฟอร์ม (โชว์เฉพาะโปรเจกต์ที่มีลิงก์) ไม่มี modal / วิดีโอในหน้า portfolio แล้ว
   ถ้าใช้ Claude Code พิมพ์สั่งได้เลย เช่น *"add FASTY"* สกิล `add-project-detail` จะถามข้อมูล เขียนการ์ด ผูกลิงก์ และเช็กให้ หรือทำเอง:
   1. แก้ข้อความในการ์ดของโปรเจกต์นั้น (แก้แค่ข้อความ)
   2. หน้าโปรเจกต์ → HTML ไฟล์เดียว ที่ `<โฟลเดอร์>/index.html` ไม่ดึงอะไรจากข้างนอก ใส่โลโก้แท็บ `../assets/favicon.svg`
-  3. แก้ `PROJECT_PAGES` ใน `index.html` ให้ชี้ไปที่ไฟล์ (ต้องลงท้าย `index.html` ไม่ใช่แค่โฟลเดอร์) — `'#'` = ยังไม่มีหน้า การ์ดจะขึ้น "Detail coming soon"
+  3. แก้ `PROJECT_PAGES` ใน `index.html` ให้ชี้ไปที่ไฟล์ (ต้องลงท้าย `index.html` ไม่ใช่แค่โฟลเดอร์) — `'#'` = ยังไม่มีหน้า การ์ดจะขึ้น "Detail coming soon" · ลิงก์แพลตฟอร์มใส่ที่ `PROJECT_PLATFORMS` (`'#'` = ซ่อนปุ่ม Platform)
   4. รัน `check_project.py <id>` เปิด `index.html` กด View detail เช็กว่าเปิดถูก แล้ว commit ใน branch + เปิด PR
 - มี dependency นอกตัวเดียว: `esm.sh/dotted-map` (แผนที่โลกใน hero) มี try/catch กันพังไว้ แต่เป็น
   import ที่ไม่ pin เวอร์ชัน ควรให้ security ดูก่อน go-live

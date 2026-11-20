@@ -4,7 +4,8 @@ Static site: `index.html` + `assets/`, edited directly in this repo (no build, n
 It is presented by double-clicking `index.html`, so every link must be a relative path to a file.
 
 Each solution card's **View detail** button opens that project's own page in a new tab
-(`PROJECT_PAGES` in `index.html`); there is no detail modal or video on the portfolio itself.
+(`PROJECT_PAGES` in `index.html`), and a red **Platform ↗** button opens its live platform when
+one is set (`PROJECT_PLATFORMS`). There is no detail modal or video on the portfolio itself.
 To add or update a project, use the project skill `add-project-detail`
 (`.claude/skills/add-project-detail/`). The Creative Platform (`creative`) is the reference.
 

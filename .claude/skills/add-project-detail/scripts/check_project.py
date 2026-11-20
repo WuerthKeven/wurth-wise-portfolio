@@ -65,6 +65,21 @@ def main():
                     print(f"WARN  [step 4] project page is {mb:.1f} MB — slow to open; shrink images/video")
                 print(f"ok    page -> {page} ({mb:.1f} MB)")
 
+    pm = re.search(r"PROJECT_PLATFORMS\s*=\s*\{([^}]*)\}", html)
+    pk = pm and re.search(r"\b%s\s*:\s*'([^']*)'" % re.escape(pid), pm.group(1))
+    if not pm:
+        fail(5, "PROJECT_PLATFORMS map not found in index.html")
+    elif not pk:
+        fail(5, f"no '{pid}' key in PROJECT_PLATFORMS")
+    elif pk.group(1) == "#":
+        print("WARN  [step 5] no platform URL (Platform button hidden)")
+    elif not pk.group(1).startswith("https://"):
+        fail(5, f"platform URL '{pk.group(1)}' should be a full https:// address")
+    else:
+        print(f"ok    platform -> {pk.group(1)}")
+    if f'data-solplatform="{pid}"' not in html:
+        fail(5, f'card has no Platform button data-solplatform="{pid}"')
+
     print("PASS" if not fails else f"{fails} FAIL(s)")
     return 1 if fails else 0
 
