@@ -64,3 +64,43 @@ EXCEPTION" restricts to internal team-identity surfaces and prohibits on externa
 ones. Keven's call on 2026-08-04 was to leave it as out of scope for this change. If this site is
 classed customer-facing, the fix is swapping it for `WISE-logo2026-Image-BG.png` (solid `#CC0000`).
 Worth settling with Brigitte.
+
+---
+
+# 📌 Decision — Würth Sans `_ds/` fonts stay at v1.000 (2026-08-07)
+
+> **Standing decision record — independent of the logo backfill above.** If the logo backfill is
+> ever completed and the top of this file removed, **keep this section** (move it into `CLAUDE.md`
+> or a `DECISIONS.md`); do not delete it with the rest.
+
+Würth Sans **v1.003** landed from HQ on 2026-08-07 (Brigitte's assessment:
+`Co-worker/outputs/research/2026-08-07_wuerth-sans-package-assessment.md`). This repo's
+`_ds/w-rth-design-system-…/fonts/` carry **v1.000** — 8 tracked files (`Black`, `BlackCond`,
+`Book`, `Demi`, each `.woff` + `.woff2`), correctly tracked (do **not** apply Co-worker's widened
+font `.gitignore` rule here — those files are small and belong in git).
+
+**Keven's call (2026-08-07): accept that `_ds/` stays at v1.000 until the Würth Design System
+catches up.** Do **not** hand-copy the v1.003 files in — `_ds/` is a *design-system export*, not a
+hand-maintained asset folder; a hand-edit desyncs it from source and the next re-export silently
+reverts it. The only correct upgrade path (update the font upstream in the Würth Design System,
+then re-export `_ds/`) is **parked** on Keven's WDS CI-material upload.
+
+**Why this is low-risk today:** v1.003 adds +94 codepoints with 0 removed — essentially the full
+Vietnamese block (U+1EA0–1EF9 + Ơơ Ưư). This site renders **no Vietnamese content**, so the gain
+is nil for now. Revisit only if the portfolio ever needs Vietnamese.
+
+**Trap if this is ever revisited:** HQ **renamed** `WuerthSans-Demi` → `WuerthSans-DemiBold` (and
+`WuerthSansVF-Standard` → `WuerthSans-VF`) in v1.003. Our `WuerthSans-Demi.woff2` has **no
+same-name counterpart** upstream — a filename-matched copy would move Black/BlackCond/Book to
+v1.003 and silently leave Demi stranded at v1.000 (a mixed-version stack, the worst outcome). Any
+future update must go through the design-system re-export, never a hand-copy.
+
+**A `_ds/` refresh cannot be sourced from the Co-worker library at all.** That library deliberately
+carries **only** `Book`/`Black`/`BlackCond` (`CD-RULES.md:55` — `DemiBold` and `VF` exist in HQ's
+kit but are not imported). Our `_ds/` needs a `Demi`/`DemiBold` weight the library doesn't hold, so
+even a sanctioned refresh has to come **through the design-system re-export**, not a file copy from
+Co-worker. This reinforces the decision above.
+
+Reference only (read-only, Co-worker side), canonical unversioned paths:
+`Co-worker/library/ci-wurth/fonts/WuerthSans-{Black,BlackCond,Book}.woff2`. Never copy these into
+this repo.
