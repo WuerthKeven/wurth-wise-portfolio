@@ -2,6 +2,7 @@
 <html><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <script src="assets/003dff72-f60f-47c5-80de-642a1028f2cb.js"></script>
 <title>WISE Portfolio</title>
 </head>
@@ -1781,7 +1782,7 @@ class Component extends DCLogic {
     // its promotion page. Leave as '#' and the button stays inert; set a real
     // URL and it opens in a new tab.
     const PLATFORM_URLS = { fasty:'#', creative:'https://3130-creative-platform.wgn.wuerth.com/home', loyalty:'#', knowledge:'#', flipbook:'#', rpa:'#' };
-    const PROMO_URLS = { fasty:'#', creative:'creative-platform/', loyalty:'#', knowledge:'#', flipbook:'#', rpa:'#' };
+    const PROMO_URLS = { fasty:'#', creative:'creative-platform/index.html', loyalty:'#', knowledge:'#', flipbook:'#', rpa:'#' };
     qa('[data-solplatform]').forEach(a=>{ const m = a.closest('[data-solmodal]'); const u = m && PLATFORM_URLS[m.getAttribute('data-solmodal')]; if(u && u !== '#'){ a.href = u; a.target = '_blank'; a.rel = 'noopener'; } });
     qa('[data-solmore]').forEach(a=>{ const u = PROMO_URLS[a.getAttribute('data-solmore')]; if(u && u !== '#'){ a.href = u; a.target = '_blank'; a.rel = 'noopener'; } });
 

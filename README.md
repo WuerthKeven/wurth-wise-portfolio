@@ -12,7 +12,7 @@ A single static page — `index.html` + `assets/`. No build step, no framework, 
 > hand-edited. That is no longer true (changed 2026-11-19): the design is edited here now, and the
 > Claude Design round-trip + its sync script are gone.
 
-Preview locally:
+Open it: **double-click `index.html`** — that is how it is presented today. Or serve it locally:
 
 ```powershell
 python -m http.server 4173 --bind 127.0.0.1
@@ -24,7 +24,12 @@ same command.)
 ## Adding a project's detail (promo page, platform link, preview video)
 
 Every solution card opens a detail modal with a preview video, **Go to platform** and
-**More detail**. The Creative Platform (`creative`) is the finished reference — copy what it does.
+**More detail**.
+
+> **With Claude Code:** open this folder and ask, e.g. *"add the details for FASTY"*. The project
+> skill `add-project-detail` (in `.claude/skills/`, shared with the repo) interviews you about the
+> project, asks whether to make a preview video, wires everything below and checks it. The manual
+> steps are the same thing by hand. The Creative Platform (`creative`) is the finished reference — copy what it does.
 
 The six solution ids are: `fasty`, `creative`, `loyalty`, `knowledge`, `flipbook`, `rpa`.
 
@@ -51,12 +56,12 @@ The six solution ids are: `fasty`, `creative`, `loyalty`, `knowledge`, `flipbook
 
 ```js
 const PLATFORM_URLS = { ..., creative:'https://3130-creative-platform.wgn.wuerth.com/home', ... };
-const PROMO_URLS    = { ..., creative:'creative-platform/', ... };
+const PROMO_URLS    = { ..., creative:'creative-platform/index.html', ... };
 ```
 
 A value left as `'#'` keeps the button inert; a real value opens in a new tab.
 
-**4. Check it** — run the preview (below), click the project's **View detail**: the video plays,
+**4. Check it** — run `python .claude/skills/add-project-detail/scripts/check_project.py <id>`, then open `index.html` and click the project's **View detail**: the video plays,
 both buttons go where they should, and the console shows no new errors. Then commit.
 
 ## Hosting
@@ -103,7 +108,7 @@ scripts/
 - พรีวิว: `python -m http.server 4173 --bind 127.0.0.1` แล้วเปิด <http://localhost:4173>
 - ปลายทางจริงคือ **Azure** (วิธีเลือกโฮสต์อยู่ใน `scripts/AZURE-HOSTING-BRIEF.md`) ส่วนลิงก์ vercel
   เป็นแค่ที่พรีเซนต์ชั่วคราว อย่าผูกโดเมน
-- **เพิ่ม detail ของโปรเจกต์อื่น** ให้ทำตาม Creative Platform (ดูหัวข้อ *Adding a project's detail*):
+- **เพิ่ม detail ของโปรเจกต์อื่น** ถ้าใช้ Claude Code พิมพ์สั่งได้เลย เช่น *"add the details for FASTY"* สกิล `add-project-detail` จะถามข้อมูลโปรเจกต์ ถามว่าจะทำวิดีโอไหม แล้วทำให้ตามแบบ Creative Platform หรือทำเองตามนี้ (ดูหัวข้อ *Adding a project's detail*):
   1. หน้าโปรโมท → `<โฟลเดอร์>/index.html` (HTML ไฟล์เดียว ไม่ดึงอะไรจากข้างนอก)
   2. วิดีโอพรีวิว → `assets/<id>-preview.mp4` แล้วเปลี่ยนบรรทัด `<media-slot id="sol-<id>">` เป็น `<video data-solvideo="1" ...>`
   3. ลิงก์ → แก้ `PLATFORM_URLS` / `PROMO_URLS` ใน `index.html` ตาม id ของโปรเจกต์
