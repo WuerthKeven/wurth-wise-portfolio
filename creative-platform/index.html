@@ -189,8 +189,9 @@ h2{font-size:clamp(40px,6.4vw,80px)}
 .formats{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:24px 0 0;padding:0}
 
 /* assistant chat */
-.chat{display:grid;grid-template-columns:320px 1fr;min-height:440px}
-.chat .msgs{order:-1;border-left:0;border-right:1px solid var(--bone)}
+.chat{display:grid;grid-template-columns:1fr 320px;min-height:440px}
+/* the prompt box sits at the bottom of the chat, as in any chat app */
+.msgs .ask{order:9;margin-top:auto}
 .msgs{border-left:1px solid var(--bone);padding:16px;display:flex;flex-direction:column;gap:10px;font-size:14px}
 .bub{padding:10px 12px;border:1px solid var(--bone);border-radius:8px;max-width:94%;min-height:42px;color:var(--ink)}
 /* the one red hairline on the page: the prompt */
@@ -274,23 +275,29 @@ h2{font-size:clamp(40px,6.4vw,80px)}
 .bookbox{background:var(--paper);border:1px solid var(--bone);border-radius:16px;box-shadow:var(--shadow-md);padding:52px 24px 24px;text-align:center}
 .bookcap{font-size:14px;color:var(--fog);margin:36px 0 12px}
 
-/* community: your design on the left, the countries that clone it on the right */
-.comm{display:grid;grid-template-columns:240px 1fr;margin-top:48px;background:var(--paper);border:1px solid var(--bone);border-radius:16px;box-shadow:var(--shadow-md);overflow:hidden;position:relative}
-.comm .cap{margin:0;font-weight:600;font-size:13px;color:var(--fog)}
-.comm-me{padding:24px;border-right:1px solid var(--bone);display:grid;gap:12px;justify-items:start;align-content:start}
-.comm-me .im{width:140px;aspect-ratio:2480/3508;box-shadow:var(--shadow-md)}
-.comm-st{font-size:14px;color:var(--fog);min-height:42px}
-.comm-out{padding:24px;min-width:0}
-.comm-n{display:flex;align-items:baseline;gap:10px;font-size:18px;color:var(--fog)}
-.comm-n b{font-family:var(--font-headline);font-weight:800;font-size:64px;line-height:1;color:var(--iris);font-variant-numeric:tabular-nums}
-.comm-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:20px}
-.comm-grid figure{min-width:0}
-.comm-grid .im{position:relative;aspect-ratio:2480/3508;outline:1px dashed var(--bone);outline-offset:-1px;overflow:hidden}
-.comm-grid .im::after{content:"";position:absolute;inset:0;background:var(--cream);transition:opacity 300ms linear}
-.comm-grid figure.on .im{outline-color:transparent;box-shadow:var(--shadow-md)}
-.comm-grid figure.on .im::after{opacity:0}
-.comm-grid figcaption{font-size:13px;color:var(--mid);margin-top:8px;transition:color 150ms linear}
-.comm-grid figure.on figcaption{color:var(--ink);font-weight:600}
+/* community: your design, a colleague's edited copy, and the activity on your design */
+.comm{display:grid;grid-template-columns:240px 220px 1fr;margin-top:48px;background:var(--paper);border:1px solid var(--bone);border-radius:16px;box-shadow:var(--shadow-md);overflow:hidden;position:relative}
+.comm .cap{margin:0 0 12px;font-weight:600;font-size:13px;color:var(--fog)}
+.cm-card,.cm-copy{padding:24px;border-right:1px solid var(--bone);min-width:0}
+.cm-art,.cm-art2 .im{width:100%;aspect-ratio:2480/3508;box-shadow:var(--shadow-md)}
+.cm-t{display:block;margin-top:14px;font-weight:600;color:var(--ink)}
+.cm-by{display:block;font-size:14px;color:var(--fog)}
+.cm-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.cm-star,.cm-cp{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border:1px solid var(--bone);border-radius:320px;font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums;transition:border-color 150ms linear}
+.cm-star .ico,.cm-cp .ico{width:16px;height:16px}
+.cm-star.on{border-color:var(--iris)}.cm-star.on .ico{color:var(--iris);fill:var(--iris)}
+.cm-btn{margin-top:12px;cursor:default}
+.cm-copy{opacity:.2;transition:opacity 300ms linear}.cm-copy.on{opacity:1}
+.cm-art2{position:relative}
+.cm-edit{position:absolute;left:3%;top:13%;width:62%;height:17%;outline:2px dashed var(--iris);outline-offset:2px;opacity:0;transition:opacity 200ms linear}
+.cm-edit.on{opacity:1}
+.cm-tag{display:inline-block;margin-top:12px;font-size:13px;font-weight:600;background:var(--ink);color:var(--paper);border-radius:4px;padding:2px 8px;opacity:0;transition:opacity 300ms linear}.cm-tag.on{opacity:1}
+.cm-fw{padding:24px;min-width:0}
+.cm-feed{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.cm-feed li{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--bone);border-radius:8px;font-size:14px;color:var(--fog);opacity:0;transform:translateY(12px);transition:opacity 300ms linear,transform 300ms var(--ease)}
+.cm-feed li.on{opacity:1;transform:none}
+.cm-feed b{color:var(--ink);font-weight:600}
+.cm-feed .ico{width:18px;height:18px;color:var(--iris)}
 .lib{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .asset{aspect-ratio:1;border:1px solid var(--bone);border-radius:8px;overflow:hidden;display:grid;place-items:center;background-color:var(--paper);transition:opacity 300ms linear}
 .asset.off{opacity:.15}
@@ -483,8 +490,7 @@ footer{padding:24px 0 48px;font-size:13px;color:var(--fog)}
   .wrow{gap:12px}
   .win-body{grid-template-columns:1fr}.rail,.panel{display:none}
   .msgs{border-left:0;border-top:1px solid var(--bone)}
-  .chat .msgs{border-right:0;border-top:0;border-bottom:1px solid var(--bone)}
-  .comm{grid-template-columns:1fr}.comm-me{border-right:0;border-bottom:1px solid var(--bone)}.comm-grid{grid-template-columns:repeat(3,1fr)}
+  .comm{grid-template-columns:1fr 1fr}.cm-copy{border-right:0}.cm-fw{grid-column:1/-1;border-top:1px solid var(--bone)}
   .card{grid-template-columns:1fr;aspect-ratio:auto;padding:16px}
   .card .pv{order:-1;height:200px}
   .pv .sheet{width:42%;top:10%}
@@ -529,6 +535,9 @@ footer{padding:24px 0 48px;font-size:13px;color:var(--fog)}
     <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12"/><path d="M16 8V4H4v12h4"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"/></symbol>
     <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v12M6 11l6 6 6-6M4 21h16"/></symbol>
     <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-4 3-6 6-6s6 2 6 6M16 5a3 3 0 010 6M21 20c0-3-1-5-4-6"/></symbol>
@@ -764,10 +773,11 @@ footer{padding:24px 0 48px;font-size:13px;color:var(--fog)}
 <section id="share">
   <div class="wrap">
     <h2>You build it<br><b>Every country uses it</b></h2>
-    <p class="sub"><b>Community.</b> Good work should travel. Publish your design. After the brand review, colleagues in every country can open it, clone it and make it theirs. Your idea saves the next team from starting at zero.</p>
-    <div class="comm" id="comm" aria-label="Illustration: you publish a design, HQ approves it, six countries clone it">
-      <div class="comm-me"><p class="cap">Your design</p><div class="im im-n5" role="img" aria-label="Your A4 flyer"></div><span class="btn go sm" id="commBtn">Publish</span><p class="comm-st" id="commSt"></p></div>
-      <div class="comm-out"><p class="comm-n"><b id="commN">0</b> countries use your design</p><div class="comm-grid" id="commGrid"><figure><div class="im im-n5"></div><figcaption>Malaysia</figcaption></figure><figure><div class="im im-n5"></div><figcaption>Vietnam</figcaption></figure><figure><div class="im im-n5"></div><figcaption>Japan</figcaption></figure><figure><div class="im im-n5"></div><figcaption>India</figcaption></figure><figure><div class="im im-n5"></div><figcaption>Indonesia</figcaption></figure><figure><div class="im im-n5"></div><figcaption>Philippines</figcaption></figure></div></div>
+    <p class="sub"><b>Community.</b> Publish your design to Community. Colleagues star what works, copy it and edit their own version. You see who builds on your idea, and the next team does not start from zero.</p>
+    <div class="comm" id="comm" aria-label="Illustration: colleagues star your design and one team edits its own copy">
+      <div class="cm-card"><p class="cap">Your design in Community</p><div class="im im-n5 cm-art" role="img" aria-label="Your A4 flyer"></div><b class="cm-t">Tropics Plus A4 flyer</b><span class="cm-by">By you</span><div class="cm-row"><span class="cm-star" id="cmStar"><svg class="ico"><use href="#i-star"/></svg><b id="cmStars">12</b></span><span class="cm-cp"><svg class="ico"><use href="#i-copy"/></svg><b id="cmCopies">3</b>&nbsp;copies</span></div><span class="btn line sm cm-btn" id="cmEditBtn"><svg class="ico"><use href="#i-pen"/></svg>Edit a copy</span></div>
+      <div class="cm-copy"><p class="cap">Their copy</p><div class="cm-art2"><div class="im im-n5" role="img" aria-label="A colleague's edited copy"></div><span class="cm-edit" id="cmEdit"></span></div><span class="cm-tag" id="cmTag">Edited by Vietnam team</span></div>
+      <div class="cm-fw"><p class="cap">Activity on your design</p><ul class="cm-feed" id="cmFeed"><li><svg class="ico"><use href="#i-star"/></svg><span><b>Malaysia team</b> starred your design</span></li><li><svg class="ico"><use href="#i-star"/></svg><span><b>Japan team</b> starred your design</span></li><li><svg class="ico"><use href="#i-copy"/></svg><span><b>Vietnam team</b> made a copy</span></li><li><svg class="ico"><use href="#i-pen"/></svg><span><b>Vietnam team</b> edited the headline and the price</span></li><li><svg class="ico"><use href="#i-check"/></svg><span><b>Vietnam team</b> published their version</span></li></ul></div>
     </div>
     <div class="split flip">
       <div>
@@ -1065,17 +1075,18 @@ footer{padding:24px 0 48px;font-size:13px;color:var(--fog)}
   },function(){spread(1)});
   turnBtn.onclick=bookRun;
 
-  // community: you publish, HQ approves, six countries clone it one by one and the counter follows
-  var comm=$('#comm'),cTiles=$$('#commGrid figure'),cN=$('#commN'),cSt=$('#commSt'),cBtn=$('#commBtn');
-  function commSet(n,st){cTiles.forEach(function(x,i){x.classList.toggle('on',i<n)});cN.textContent=n;if(st)cSt.textContent=st}
-  var c1=Cur(comm,'You',RED,.1,.84),c2=Cur(comm,'HQ',BLK,.3,.84),c3=Cur(comm,'Team',GRY,.9,.84);
+  // community: two colleagues star your design, a third team copies it and edits its own version
+  var comm=$('#comm'),cmS=$('#cmStar'),cmSN=$('#cmStars'),cmCN=$('#cmCopies'),cmBtn=$('#cmEditBtn'),cmCopy=$('.cm-copy',comm),cmEdit=$('#cmEdit'),cmTag=$('#cmTag'),cmF=$$('#cmFeed li');
+  function cmSet(stars,copies,feed,copy,edit){cmSN.textContent=stars;cmCN.textContent=copies;cmS.classList.toggle('on',stars>12);cmF.forEach(function(x,i){x.classList.toggle('on',i<feed)});cmCopy.classList.toggle('on',copy);cmEdit.classList.toggle('on',edit);cmTag.classList.toggle('on',edit)}
+  var c1=Cur(comm,'Malaysia',RED,.12,.88),c2=Cur(comm,'Japan',BLK,.3,.88),c3=Cur(comm,'Vietnam',GRY,.5,.88);
   demo(comm,async function(t){
-    commSet(0,'Draft. Only you can see it.');await t.sleep(700);
-    await t.go(c1,cBtn);await t.click(c1);hit(cBtn);cSt.textContent='Sent for the brand review.';await t.sleep(800);
-    await t.go(c2,$('.comm-me .im',comm),.5,.5);await t.click(c2);cSt.textContent='Approved. Live in Community.';await t.sleep(800);
-    for(var i=0;i<cTiles.length;i++){await t.go(c3,cTiles[i],.5,.4,450);await t.click(c3);commSet(i+1)}
-    cSt.textContent='Your idea now works in 6 countries.';await t.go(c3,comm,.9,.84,600);await t.sleep(3600)
-  },function(){commSet(6,'Approved. Live in Community.')});
+    cmSet(12,3,0,false,false);await t.sleep(700);
+    await t.go(c1,cmS);await t.click(c1);hit(cmS);cmSet(13,3,1,false,false);await t.sleep(500);
+    await t.go(c2,cmS);await t.click(c2);hit(cmS);cmSet(14,3,2,false,false);await t.sleep(500);
+    await t.go(c3,cmBtn);await t.click(c3);hit(cmBtn);cmSet(14,4,3,true,false);await t.sleep(700);
+    await t.go(c3,cmEdit,.5,.5);await t.click(c3);cmSet(14,4,4,true,true);await t.sleep(1000);
+    cmSet(14,4,5,true,true);await t.go(c3,comm,.5,.88,600);await t.sleep(3400)
+  },function(){cmSet(14,4,5,true,true)});
 
   // library: pointers filter the brand library
   var ld=$('#libDemo'),chips=$$('#libChips span'),assets=$$('#lib .asset'),li=0,lpick=null;
