@@ -7,3 +7,6 @@ desktop.ini
 .DS_Store
 
 .vercel
+
+# SharePoint build output (regenerate with: python scripts/build_sharepoint.py)
+sharepoint/

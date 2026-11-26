@@ -58,6 +58,22 @@ shows the red **Platform ↗** button; `'#'` keeps the button hidden.
 then open `index.html`, click the card's **View detail**: the page opens in a new tab and renders.
 Then commit on a branch and open a Pull Request.
 
+## Publishing to SharePoint
+
+The site is shared from the REBT SharePoint library, folder **`WISE-Portal`**. Build the upload set:
+
+```powershell
+python scripts/build_sharepoint.py
+```
+
+It writes three single-file pages to `sharepoint/` (not tracked in git). Upload all three into `WISE-Portal`, keeping
+the file names — the links between the pages and in the newsletter depend on them. Re-upload over the old files after
+every change.
+
+SharePoint's viewer blocks outside scripts and run-time code compilation, which the Claude Design export of
+`index.html` needs (React from unpkg.com, `new Function`). So the build rewrites the main page as plain HTML with
+nothing external; the map library is inlined from `scripts/vendor/`. The project pages are plain already.
+
 ## Hosting
 
 Going to **Azure**, per the standing all-projects-to-Azure decision (no Vercel/Supabase as the
@@ -89,6 +105,7 @@ assets/               <- images + fonts, UUID-named, referenced by index.html
 creative-platform/    <- promo / case-study page for the Creative Platform (self-contained)
 design.config.json    <- page title + the throwaway mock-up host
 scripts/
+  build_sharepoint.py   <- builds the SharePoint upload set into sharepoint/
   AZURE-HOSTING-BRIEF.md
 ```
 
