@@ -1461,7 +1461,7 @@ class Component extends DCLogic {
       const sh = q('[data-shaft="'+id+'"]'); if(sh){ sh.style.height = (open ? sh.dataset.hOpen : sh.dataset.h)+'px'; sh.style.boxShadow = open ? '0 0 20px '+sh.dataset.glow : 'none'; } }); });
 
     // Project pages — EDIT THIS. Each card's button opens its project page in a new tab.
-    // '#' = no page yet: the button shows "Detail coming soon" and does nothing.
+    // '#' = no page yet: the button shows "Coming soon" and does nothing. Cards with a page move to the front.
     const PROJECT_PAGES = { fasty:'#', creative:'creative-platform/index.html', loyalty:'#', knowledge:'#', flipbook:'#', rpa:'#', compass:'compass-page/index.html' };
     // Live platform per project — the red "Platform ↗" button beside View detail. '#' = hidden.
     const PROJECT_PLATFORMS = { fasty:'#', creative:'https://3130-creative-platform.wgn.wuerth.com/home', loyalty:'#', knowledge:'#', flipbook:'#', rpa:'#', compass:'https://3130-compass.wgn.wuerth.com/' };
@@ -1469,8 +1469,10 @@ class Component extends DCLogic {
       if(u && u !== '#'){ a.href = u; a.target = '_blank'; a.rel = 'noopener'; a.style.display = 'flex'; } });
     qa('[data-solpage]').forEach(a=>{ const u = PROJECT_PAGES[a.getAttribute('data-solpage')];
       if(u && u !== '#'){ a.href = u; a.target = '_blank'; a.rel = 'noopener'; }
-      else { a.removeAttribute('href'); a.setAttribute('aria-disabled','true'); a.style.opacity = '.45'; a.style.pointerEvents = 'none'; a.firstChild.textContent = 'Detail coming soon '; }
+      else { a.removeAttribute('href'); a.setAttribute('aria-disabled','true'); a.style.opacity = '.45'; a.style.pointerEvents = 'none'; a.firstChild.textContent = 'Coming soon'; if(a.lastElementChild) a.lastElementChild.style.display = 'none'; }
     });
+    // projects that have a detail page come first, in their existing order
+    qa('[data-solcard]').filter(c=>{ const u = PROJECT_PAGES[c.id]; return u && u !== '#'; }).reverse().forEach(c=>c.parentNode.prepend(c));
 
     // package finder + solution pillar filter
     this._initQuiz(q, qa);
